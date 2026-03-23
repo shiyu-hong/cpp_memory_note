@@ -1,0 +1,9 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+ColumnLimit: 88
+
+AlwaysBreakTemplateDeclarations: Yes
+PointerAlignment: Left
+ReferenceAlignment: Left
+...

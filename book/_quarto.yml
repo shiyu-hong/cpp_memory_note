@@ -1,0 +1,30 @@
+project:
+  type: book
+  output-dir: docs
+
+lang: zh
+
+book:
+  title: "C++内存笔记"
+  author: 
+    name: "shiyu-hong"
+  date: today
+  date-format: long
+  chapters:
+    - index.qmd
+    - part: "基础"
+      chapters: 
+        - "contents/foundation/byte.qmd"
+        - "contents/foundation/object.qmd"
+  search: true
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: "styles/styles.css"
+    highlight-style: github
+
+editor: visual
+
