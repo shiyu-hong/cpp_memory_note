@@ -1,10 +1,30 @@
 body {
   color: #333;
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.8;
+  
+}
+
+body :not(pre) > code {
+  padding: 0.2em 0.4em;
+  margin: 0 0.2em;
+}
+
+code {
+  font-size: 0.9em;
+}
+
+p {
+  margin-bottom: 1em;
+  text-align: justify;
+}
+
+table {
+  font-size: 14px;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
-  line-height: 1.5;
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
 }
