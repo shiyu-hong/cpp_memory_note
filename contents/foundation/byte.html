@@ -354,13 +354,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">目录</h2>
    
   <ul>
-  <li><a href="#基础概念" id="toc-基础概念" class="nav-link active" data-scroll-target="#基础概念"><span class="header-section-number">1.1</span> 基础概念</a></li>
-  <li><a href="#字节位数" id="toc-字节位数" class="nav-link" data-scroll-target="#字节位数"><span class="header-section-number">1.2</span> 字节位数</a>
+  <li><a href="#概述" id="toc-概述" class="nav-link active" data-scroll-target="#概述"><span class="header-section-number">1.1</span> 概述</a>
   <ul class="collapse">
-  <li><a href="#注意事项" id="toc-注意事项" class="nav-link" data-scroll-target="#注意事项"><span class="header-section-number">1.2.1</span> 注意事项</a></li>
-  <li><a href="#如何查询平台的字节位数" id="toc-如何查询平台的字节位数" class="nav-link" data-scroll-target="#如何查询平台的字节位数"><span class="header-section-number">1.2.2</span> 如何查询平台的字节位数</a></li>
+  <li><a href="#字节特性" id="toc-字节特性" class="nav-link" data-scroll-target="#字节特性"><span class="header-section-number">1.1.1</span> 字节特性</a></li>
+  <li><a href="#字节位数" id="toc-字节位数" class="nav-link" data-scroll-target="#字节位数"><span class="header-section-number">1.1.2</span> 字节位数</a></li>
   </ul></li>
-  <li><a href="#字节大小" id="toc-字节大小" class="nav-link" data-scroll-target="#字节大小"><span class="header-section-number">1.3</span> 字节大小</a></li>
+  <li><a href="#工具箱" id="toc-工具箱" class="nav-link" data-scroll-target="#工具箱"><span class="header-section-number">1.2</span> 工具箱</a>
+  <ul class="collapse">
+  <li><a href="#查询字节位数" id="toc-查询字节位数" class="nav-link" data-scroll-target="#查询字节位数"><span class="header-section-number">1.2.1</span> 查询字节位数</a></li>
+  <li><a href="#获取对象占用的字节数" id="toc-获取对象占用的字节数" class="nav-link" data-scroll-target="#获取对象占用的字节数"><span class="header-section-number">1.2.2</span> 获取对象占用的字节数</a></li>
+  </ul></li>
+  <li><a href="#注意事项" id="toc-注意事项" class="nav-link" data-scroll-target="#注意事项"><span class="header-section-number">1.3</span> 注意事项</a>
+  <ul class="collapse">
+  <li><a href="#布尔类型的内存占用" id="toc-布尔类型的内存占用" class="nav-link" data-scroll-target="#布尔类型的内存占用"><span class="header-section-number">1.3.1</span> 布尔类型的内存占用</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -387,67 +394,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="基础概念" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="基础概念"><span class="header-section-number">1.1</span> 基础概念</h2>
-<p>在C++中，内存是程序运行时存储代码和数据的区域。从抽象层面来看，内存可视为一段连续的字节序列。字节是该序列的基本构成单位，具有以下特性：</p>
-<ol type="1">
-<li><p>字节是内存的基础存储单元。</p></li>
-<li><p>字节是内存中最小的可寻址单元。</p></li>
-</ol>
+<section id="概述" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="概述"><span class="header-section-number">1.1</span> 概述</h2>
+<p>在C++程序运行期间，内存用于存储代码指令和数据。从抽象层面来看，内存由若干离散分布的连续内存块组成，每个内存块均可视为一段连续排列的字节序列。</p>
+<section id="字节特性" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="字节特性"><span class="header-section-number">1.1.1</span> 字节特性</h3>
+<p>在C++程序中，字节不仅是数据的基本存储单元，也是内存的最小可寻址单元。每个字节对应唯一的内存地址，程序可通过地址访问任意字节。</p>
 </section>
-<section id="字节位数" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="字节位数"><span class="header-section-number">1.2</span> 字节位数</h2>
-<p>一个字节由若干连续的二进制位构成。C++标准对字节位数的规定如下：</p>
-<ol type="1">
-<li><p>每个字节至少包含8个二进制位。</p></li>
-<li><p>字节的具体位数由实现定义，在某些特殊平台上可能超过8位。</p></li>
-</ol>
-<section id="注意事项" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="注意事项"><span class="header-section-number">1.2.1</span> 注意事项</h3>
+<section id="字节位数" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="字节位数"><span class="header-section-number">1.1.2</span> 字节位数</h3>
+<p>字节由若干连续的二进制位组成，关于其位数，需注意以下几点：</p>
 <ul>
-<li><p>在绝大多数现代平台上，<code>CHAR_BIT</code>的值为8。</p></li>
-<li><p>在某些嵌入式或特殊架构平台上，<code>CHAR_BIT</code>可能存在其他值（如16或32）。</p></li>
-<li><p>编写可移植代码时，应避免硬编码字节位数，建议使用<code>CHAR_BIT</code>宏查询实际位数后再进行编码。</p></li>
+<li><p><strong>最小位数</strong>：每个字节至少包含8个二进制位。在绝大多数现代计算平台上，一个字节恰好为8位。</p></li>
+<li><p><strong>实现定义</strong>：字节的具体位数由实现定义。在某些嵌入式系统或特殊架构的平台上，字节位数可能为16位甚至32位。</p></li>
 </ul>
 </section>
-<section id="如何查询平台的字节位数" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="如何查询平台的字节位数"><span class="header-section-number">1.2.2</span> 如何查询平台的字节位数</h3>
-<p>C++标准库提供了预定义宏<code>CHAR_BIT</code>，用于查询当前平台的字节位数。该宏定义在<code>&lt;climits&gt;</code>头文件中，其值表示一个字节中包含的二进制位数。</p>
-<p>以下是一个简单的示例：</p>
+</section>
+<section id="工具箱" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="工具箱"><span class="header-section-number">1.2</span> 工具箱</h2>
+<section id="查询字节位数" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="查询字节位数"><span class="header-section-number">1.2.1</span> 查询字节位数</h3>
+<p>C++标准规定 <code>char</code> 类型的大小始终为1字节。基于这一特性，可通过引入标准库头文件 <code>&lt;climits&gt;</code>, 调用其中的预定义宏 <code>CHAR_BIT</code>，来查询当前运行平台下1字节包含的二进制位数。</p>
+<p>以下是一个简单的代码示例：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;climits&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 输出当前平台的字节位数</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Number of bits in a byte on this platform: "</span> <span class="op">&lt;&lt;</span> CHAR_BIT <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Number of bits in a byte on this platform: "</span> <span class="op">&lt;&lt;</span> CHAR_BIT <span class="op">&lt;&lt;</span> <span class="ch">'</span><span class="sc">\n</span><span class="ch">'</span><span class="op">;</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
-<p>在Windows 11系统上的运行结果如下：</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Number of bits in a byte on <span class="kw">this</span> platform<span class="op">:</span> <span class="dv">8</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>运行结果如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Number</span> of bits in a byte on this platform: 8</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-</section>
-<section id="字节大小" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="字节大小"><span class="header-section-number">1.3</span> 字节大小</h2>
-<p>在C++中，可通过<code>sizeof</code>运算符获取对象或类型在内存中占用的字节数。<code>sizeof</code>在编译期求值，返回类型为<code>size_t</code>。</p>
-<p>以下是一个简单的示例：</p>
+<section id="获取对象占用的字节数" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="获取对象占用的字节数"><span class="header-section-number">1.2.2</span> 获取对象占用的字节数</h3>
+<p>在C++中，<code>sizeof</code> 是编译期运算符，用于获取对象或类型在内存中占用的字节数，其返回值的类型为无符号整数类型 <code>size_t</code>。</p>
+<p>以下是一个简单的代码示例：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 获取int类型占用的字节数</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">size_t</span> int_bytes <span class="op">=</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">);</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 使用 sizeof 运算符获取 int 类型占用的字节数</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">size_t</span> int_bytes<span class="op">{</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">)};</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 定义double类型变量并获取其字节数</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> pi <span class="op">=</span> <span class="fl">3.14</span><span class="op">;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">size_t</span> double_bytes <span class="op">=</span> <span class="kw">sizeof</span> pi<span class="op">;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 输出两种数据类型的大小</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Size of int: "</span> <span class="op">&lt;&lt;</span> int_bytes <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Size of double: "</span> <span class="op">&lt;&lt;</span> double_bytes <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
-<p>在Windows 11系统上的运行结果如下：</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Size of <span class="dt">int</span><span class="op">:</span> <span class="dv">4</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Size of <span class="dt">double</span><span class="op">:</span> <span class="dv">8</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 定义浮点变量 flag，初始值设为 3.14</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> pi<span class="op">{</span><span class="fl">3.14</span><span class="op">};</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 获取 pi 变量占用的字节数，sizeof 作用于变量时括号可省略</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">size_t</span> double_bytes<span class="op">{</span><span class="kw">sizeof</span> pi<span class="op">};</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 依次输出 int 和 double 类型占用的字节数</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Size of int: "</span> <span class="op">&lt;&lt;</span> int_bytes <span class="op">&lt;&lt;</span> <span class="ch">'</span><span class="sc">\n</span><span class="ch">'</span><span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Size of double: "</span> <span class="op">&lt;&lt;</span> double_bytes <span class="op">&lt;&lt;</span> <span class="ch">'</span><span class="sc">\n</span><span class="ch">'</span><span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>运行结果如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Size</span> of int: 4</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Size</span> of double: 8</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="注意事项" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="注意事项"><span class="header-section-number">1.3</span> 注意事项</h2>
+<section id="布尔类型的内存占用" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="布尔类型的内存占用"><span class="header-section-number">1.3.1</span> 布尔类型的内存占用</h3>
+<p>从逻辑上看，C++中的布尔类型仅需1个二进制位即可存储 <code>true</code> 和 <code>false</code> 两种状态，但由于字节是内存的最小可寻址单元，布尔类型在内存中仍会占用1字节的存储空间。</p>
+<p>以下是一个简单的代码示例：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 定义布尔变量 flag，初始值设为 false</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> flag<span class="op">{</span><span class="kw">false</span><span class="op">};</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 使用 sizeof 获取 flag 的内存大小，并输出结果</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Size of boolean variable: "</span> <span class="op">&lt;&lt;</span> <span class="kw">sizeof</span><span class="op">(</span>flag<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="st">" byte.</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>运行结果如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Size</span> of boolean variable: 1 byte.</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
